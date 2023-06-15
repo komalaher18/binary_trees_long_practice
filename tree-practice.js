@@ -17,9 +17,9 @@ function findMinBST(rootNode, arr = []) {
 
 function findMaxBST(rootNode, arr = []) {
   if (rootNode) {
-    findMinBST(rootNode.left, arr);
+    findMaxBST(rootNode.left, arr);
     arr.push(rootNode.val);
-    findMinBST(rootNode.right, arr);
+    findMaxBST(rootNode.right, arr);
     if (arr.length) {
       return arr[arr.length - 1];
     }
@@ -66,29 +66,32 @@ function findMaxBT(rootNode) {
 }
 
 function getHeight(rootNode) {
+  /*//!this was code attempted
+   let height;
+   if (!rootNode) {
+     height = -1;
+     // height--;
+   } else if (rootNode.right === null && rootNode.left === null) {
+     height = 0;
+ 
+   } else {
+ 
+   }
+   return height;
+   */
+
+  // /*
   let height;
   if (!rootNode) {
-    height = -1;
-    // height--;
-  } else if (rootNode.right === null && rootNode.left === null) {
-    height = 0;
-
-  } else {
-
-  }
-  return height;
-  /*
-  let height;
-  if(!rootNode){
     return -1;
   }
-  if(!rootNode.left && ! rootNode.right){
+  if (!rootNode.left && !rootNode.right) {
     return 0;
   }
   const leftHeight = getHeight(rootNode.left);
   const rightHeight = getHeight(rootNode.right);
   return Math.max(leftHeight, rightHeight) + 1;
-  */
+  //*/
 }
 
 function balancedTree(rootNode) {
