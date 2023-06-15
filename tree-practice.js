@@ -4,24 +4,79 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 
 // Practice problems on binary trees
 
-function findMinBST (rootNode) {
-  // Your code here
+function findMinBST (rootNode, arr = []) {
+  if(rootNode){
+    findMinBST(rootNode.left, arr);
+    arr.push(rootNode.val);
+    findMinBST(rootNode.right, arr);
+    if(arr.length){
+      return arr[0];
+    }
+  }
 }
 
-function findMaxBST (rootNode) {
-  // Your code here
+function findMaxBST (rootNode, arr =[]) {
+  if(rootNode){
+    findMinBST(rootNode.left, arr);
+    arr.push(rootNode.val);
+    findMinBST(rootNode.right, arr);
+    if(arr.length){
+      return arr[arr.length-1];
+    }
+  }
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+  const stack = [rootNode];
+  let min = Infinity;
+  while(stack.length){
+    const currentNode = stack.pop();
+    if(currentNode.val < min){
+      min = currentNode.val;
+    }
+    if(currentNode.left){
+      stack.push(currentNode.left)
+    }
+    if(currentNode.right){
+      stack.push(currentNode.right);
+    }
+
+  }
+  return min;
 }
 
+
 function findMaxBT (rootNode) {
-  // Your code here
+ const stack = [rootNode];
+  let max = -Infinity;
+  while(stack.length){
+    const currentNode = stack.pop();
+    if(currentNode.val > max){
+      max = currentNode.val;
+    }
+    if(currentNode.left){
+      stack.push(currentNode.left)
+    }
+    if(currentNode.right){
+      stack.push(currentNode.right);
+    }
+
+  }
+  return max;
 }
 
 function getHeight (rootNode) {
-  // Your code here
+  let height;
+  if(!rootNode){
+  height = -1;
+  // height--;
+  } else if(rootNode.right === null && rootNode.left === null) {
+    height = 0;
+
+  } else {
+
+  }
+  return height;
 }
 
 function balancedTree (rootNode) {
@@ -55,7 +110,7 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side, 
+  //  Replace target node with the left most child on its right side,
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
 
