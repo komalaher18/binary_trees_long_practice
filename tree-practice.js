@@ -94,12 +94,71 @@ function getHeight(rootNode) {
   //*/
 }
 
+function recurseHelper(direction, rootNode) {
+  let sideLength = 0;
+  if (direction === "left") {
+    if (rootNode.left) {
+      sideLength++;
+      recurseHelper("left", rootNode.left);
+    }
+    console.log("I am going to return sidelength now for LEFT");
+    return sideLength;
+  }
+  else if (direction === "right") {
+    if (rootNode.right) {
+      //console.log("hello, I am RIGHT here?")
+      sideLength++;
+      recurseHelper("right", rootNode.right);
+    }
+    console.log("I am going to return sidelength now for RIGHT");
+    return sideLength;
+  }
+}
+
 function balancedTree(rootNode) {
   // Your code here
+  let balancedBool = false;
+  if (!rootNode) {
+    return;
+  }
+  let leftSide = 0;
+  let rightSide = 0;
+  //straight to the left incrementing as we go
+  if (rootNode.left) {
+    leftSide = recurseHelper("left", rootNode.left);
+  }
+  //if left 
+
+  //stright ot the right, incrememtning as we go
+  if (rootNode.right) {
+    rightSide = recurseHelper("right", rootNode.right);
+  }
+  console.log("rightSide: ", rightSide);
+  console.log("leftSide: ", leftSide);
+  const lengthDiff = leftSide - rightSide;
+  console.log("lengthDiff: ", lengthDiff);
+  const absLengthDiff = Math.abs(lengthDiff);
+  if (absLengthDiff <= 1) {
+    balancedBool = true;
+  }
+
+  return balancedBool;
 }
 
 function countNodes(rootNode) {
-  // Your code here
+  const stack = [rootNode];
+  let count = 0;
+  while (stack.length) {
+    const currentNode = stack.pop();
+    count++;
+    if (currentNode.left) {
+      stack.push(currentNode.left)
+    }
+    if (currentNode.right) {
+      stack.push(currentNode.right);
+    }
+  }
+  return count;
 }
 
 function getParentNode(rootNode, target) {
